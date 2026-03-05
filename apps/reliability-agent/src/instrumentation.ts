@@ -1,7 +1,7 @@
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 
 // 📡 TIER 7: OpenTelemetry Distributed Tracing
@@ -10,7 +10,7 @@ import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 const traceExporter = new ConsoleSpanExporter(); // Uses console for local dev, switch to OTLP Trace Exporter for prod
 
 export const sdk = new NodeSDK({
-  resource: new Resource({
+  resource: resourceFromAttributes({
     [SemanticResourceAttributes.SERVICE_NAME]: 'reliability-agent',
     [SemanticResourceAttributes.SERVICE_VERSION]: '1.0.0',
   }),
